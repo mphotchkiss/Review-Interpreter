@@ -8,34 +8,23 @@
 
 using namespace std;
 
-string tolower(string s);
+string tolower(string);
+bool compareFunction(string, string);
+vector<string> remove_repeats(vector<string>);
+void process_file(int, char **);
 
 struct sentence {
     bool positive;
     vector<string> feature;
 };
 
-string tolower(string s) {
-    for_each(s.begin(), s.end(), [](char & c) {
-        c = ::tolower(c);
-    });
-    return s;
-}
-
-bool compareFunction(string s1, string s2) {
-    return s1 < s2;
-}
-
-vector<string> remove_repeats(vector<string> words) {
-    for (int i = 1; i < words.size(); i++) {
-        if (words[i] == words[i-1]) {
-            words.erase(words.begin() + i);
-        }
-    }
-    return words;
-}
-
 int main(int argc, char ** argv) {
+    void process_file(argc, argv);
+    
+    return 0;
+}
+
+void process_file(int argc, char ** argv) {
     ifstream fstream;
     ofstream fout;
     string sentence;
@@ -122,6 +111,25 @@ int main(int argc, char ** argv) {
             fout << endl;
         }
     }
-    
-    return 0;
+}
+
+
+string tolower(string s) {
+    for_each(s.begin(), s.end(), [](char & c) {
+        c = ::tolower(c);
+    });
+    return s;
+}
+
+bool compareFunction(string s1, string s2) {
+    return s1 < s2;
+}
+
+vector<string> remove_repeats(vector<string> words) {
+    for (int i = 1; i < words.size(); i++) {
+        if (words[i] == words[i-1]) {
+            words.erase(words.begin() + i);
+        }
+    }
+    return words;
 }
