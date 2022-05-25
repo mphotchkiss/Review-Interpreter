@@ -1,2 +1,5 @@
 ./.vscode
 *.exe
+preprocessed_train.txt
+preprocessed_test.txt
+categorize

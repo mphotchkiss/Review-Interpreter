@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <bits/stdc++.h>
+#include <map>
 
 using namespace std;
 
@@ -67,11 +67,11 @@ int main(int argc, char ** argv) {
         }
     }
     fstream.close();
-    vector<vector<int>> sentences;
+    vector<vector<int> > sentences;
     fstream.open(argv[1]);
     if (fstream.is_open()) {
         while (getline(fstream, sentence)) {
-            unordered_map<string, bool> checkSentence;
+            map<string, bool> checkSentence;
             int positive = 0;
             sentence = tolower(sentence);
             string temp = "";
