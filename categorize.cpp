@@ -12,20 +12,24 @@ using namespace std;
 string tolower(string);
 bool compareFunction(string, string);
 vector<string> remove_repeats(vector<string>);
-kb * process_file(int, char **);
+kb * process_file(char *, char *);
 
 int main(int argc, char ** argv) {
-    kb * knowledgeBase = process_file(argc, argv);
-    PofPositive = knowledgeBase->computePositive();
+    kb * trained = process_file(argv[1], argv[2]);
+    kb * test = process_file(argv[3], argv[4]);
+    vector<int> results = trained->categorize(test);
+    for (int i = 0; i < results.size(); i++) {
+        cout << results[i] << endl;
+    }
     return 0;
 }
 
-kb * process_file(int argc, char ** argv) {
+kb * process_file(char * in, char * out) {
     ifstream fstream;
     ofstream fout;
     string sentence;
     vector<string> feature;
-    fstream.open(argv[1]);
+    fstream.open(in);
     if (fstream.is_open()) {
         while (getline(fstream, sentence)) {
 
@@ -53,7 +57,7 @@ kb * process_file(int argc, char ** argv) {
     }
     fstream.close();
     vector<vector<int> > sentences;
-    fstream.open(argv[1]);
+    fstream.open(in);
     if (fstream.is_open()) {
         while (getline(fstream, sentence)) {
             map<string, bool> checkSentence;
@@ -92,7 +96,7 @@ kb * process_file(int argc, char ** argv) {
         }
     }
     fstream.close();
-    fout.open(argv[2]);
+    fout.open(out);
     if (fout.is_open()) {
         for (int i = 0; i < feature.size() - 1; i++) {
             fout << feature[i] << ",";
