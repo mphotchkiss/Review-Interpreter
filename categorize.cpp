@@ -49,7 +49,9 @@ int main(int argc, char ** argv) {
             for(int i = 0; i < sentence.length(); i++) {
                 if (sentence[i] == ' ') {
                     temp.erase(remove_if(temp.begin(), temp.end(), ::ispunct), temp.end());
-                    feature.push_back(temp);
+                    if (temp != "") {
+                        feature.push_back(temp);
+                    }
                     temp = "";
                 }
                 else if (sentence[i] == '\t') {
@@ -76,7 +78,9 @@ int main(int argc, char ** argv) {
             for(int i = 0; i < sentence.length(); i++) {
                 if (sentence[i] == ' ') {
                     temp.erase(remove_if(temp.begin(), temp.end(), ::ispunct), temp.end());
-                    checkSentence.insert(pair<string,bool>(temp, true));
+                    if (temp != "") {
+                        checkSentence.insert(pair<string,bool>(temp, true));
+                    }
                     temp = "";
                 }
                 else if (sentence[i] == '\t') {
