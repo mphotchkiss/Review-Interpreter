@@ -1,0 +1,6 @@
+make.exe --dry-run --keep-going --print-directory
+make: Entering directory 'c:/Users/15038/OneDrive/Desktop/Spring 2022/CS 331/assignment-3-CS331'
+make: Leaving directory 'c:/Users/15038/OneDrive/Desktop/Spring 2022/CS 331/assignment-3-CS331'
+ 
+make: *** No targets.  Stop.
+
