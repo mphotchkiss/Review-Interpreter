@@ -2,11 +2,11 @@ CC = g++ -std=c++11
 
 all: categorize
 
-categorize: categorize.cpp
-	$(CC) categorize.cpp -o categorize
+categorize: categorize.cpp kb.cpp
+	$(CC) categorize.cpp kb.cpp -o categorize
 
 run:
 	./categorize trainingSet.txt preprocessed_train.txt 
 
 clean:
-	rm -f categorize
+	rm -f categorize preprocessed_train.txt

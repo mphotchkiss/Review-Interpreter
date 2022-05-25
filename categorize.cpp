@@ -5,27 +5,22 @@
 #include <string>
 #include <algorithm>
 #include <map>
+#include "kb.h"
 
 using namespace std;
 
 string tolower(string);
 bool compareFunction(string, string);
 vector<string> remove_repeats(vector<string>);
-struct kb process_file(int, char **);
-
-struct kb {
-    vector<vector<int> > features;
-    vector<string> vocab;
-};
+kb * process_file(int, char **);
 
 int main(int argc, char ** argv) {
-    struct kb knowledgeBase = process_file(argc, argv);
+    kb * knowledgeBase = process_file(argc, argv);
     
     return 0;
 }
 
-struct kb process_file(int argc, char ** argv) {
-    struct kb knowledgeBase;
+kb * process_file(int argc, char ** argv) {
     ifstream fstream;
     ofstream fout;
     string sentence;
@@ -112,8 +107,7 @@ struct kb process_file(int argc, char ** argv) {
             fout << endl;
         }
     }
-    knowledgeBase.vocab = feature;
-    knowledgeBase.features = sentences;
+    kb * knowledgeBase = new kb(feature, sentences);
     return knowledgeBase;
 }
 
