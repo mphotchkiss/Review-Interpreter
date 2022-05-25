@@ -7,6 +7,7 @@ class kb {
     public:
         kb(vector<string>, vector<vector<int> >);
 
+        double computePositive();
         vector<string> getVocab();
         vector<vector<int> > getFeatures();
     private:

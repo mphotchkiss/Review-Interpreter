@@ -16,7 +16,7 @@ kb * process_file(int, char **);
 
 int main(int argc, char ** argv) {
     kb * knowledgeBase = process_file(argc, argv);
-    
+    PofPositive = knowledgeBase->computePositive();
     return 0;
 }
 
