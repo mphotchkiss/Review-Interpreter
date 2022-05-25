@@ -6,4 +6,4 @@ categorize: categorize.cpp
 	$(CC) categorize.cpp -o categorize
 
 clean:
-	rm -f categorize categorize.o
+	rm -f categorize
