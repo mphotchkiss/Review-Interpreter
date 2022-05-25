@@ -11,20 +11,21 @@ using namespace std;
 string tolower(string);
 bool compareFunction(string, string);
 vector<string> remove_repeats(vector<string>);
-void process_file(int, char **);
+struct kb process_file(int, char **);
 
-struct sentence {
-    bool positive;
-    vector<string> feature;
+struct kb {
+    vector<vector<int> > features;
+    vector<string> vocab;
 };
 
 int main(int argc, char ** argv) {
-    void process_file(argc, argv);
+    struct kb knowledgeBase = process_file(argc, argv);
     
     return 0;
 }
 
-void process_file(int argc, char ** argv) {
+struct kb process_file(int argc, char ** argv) {
+    struct kb knowledgeBase;
     ifstream fstream;
     ofstream fout;
     string sentence;
@@ -111,6 +112,9 @@ void process_file(int argc, char ** argv) {
             fout << endl;
         }
     }
+    knowledgeBase.vocab = feature;
+    knowledgeBase.features = sentences;
+    return knowledgeBase;
 }
 
 
