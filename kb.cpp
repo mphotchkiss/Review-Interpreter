@@ -10,13 +10,13 @@ kb::kb(vector<string> vocab, vector<vector<int> > features) {
 vector<int> kb::categorize(kb * data) {
     vector<int> results;
     double prob = this->computePositive(1);
-    cout << "Probability in training data that positive: " << prob << endl;
+    //cout << "Probability in training data that positive: " << prob << endl;
     //for each entry in the features, categorize
-    for (int i = 0; i < 5; i++) { //data->features.size()
+    for (int i = 0; i < 30; i++) { //data->features.size()
         double probPos = log(prob);
         double probNeg = log(1.0-prob);
         //for each entry in the row (except for the last)
-        for (int j = 0; j < data->features[i].size() - 1 ; j++) {
+        for (int j = 0; j < data->features[i].size() - 1; j++) {
             probPos += log(this->computeVocabGivenPositive(data->vocab[j], data->features[i][j], 1));
             probNeg += log(this->computeVocabGivenPositive(data->vocab[j], data->features[i][j], 0));
         }
@@ -33,11 +33,11 @@ vector<int> kb::categorize(kb * data) {
 }
 
 double kb::computeVocabGivenPositive(string word, int present, int pos) {
-    int recordsBothTrue = 0;
+    int recordsMatch = 0;
     bool inVocab = false;
     int column;
     for (int i = 0; i < this->vocab.size(); i++) {
-        if (this->vocab[i].compare(word) == 0) {
+        if (this->vocab[i] == word) {
             inVocab = true;
             column = i;
         }
@@ -45,10 +45,10 @@ double kb::computeVocabGivenPositive(string word, int present, int pos) {
     if (inVocab) {
         for (int i = 0; i < this->features.size(); i++) {
             if (this->features[i][column] == present && this->features[i].back() == pos)
-                recordsBothTrue++;
+                recordsMatch++;
         }
     }
-    double prob = (1+recordsBothTrue)/(this->computePositive(pos)+this->vocab.size());
+    double prob = (1+recordsMatch)/(this->computePositive(pos)*this->features.size()+2);
     //cout << "P(" << word << "=true|positive=" << ((bool) pos) << "):\t" << prob << endl;
     return prob;
 }
