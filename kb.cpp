@@ -12,16 +12,16 @@ vector<int> kb::categorize(kb * data) {
     double prob = this->computePositive(1);
     //cout << "Probability in training data that positive: " << prob << endl;
     //for each entry in the features, categorize
-    for (int i = 0; i < 30; i++) { //data->features.size()
+    for (int i = 0; i < data->features.size(); i++) {
         double probPos = log(prob);
         double probNeg = log(1.0-prob);
         //for each entry in the row (except for the last)
         for (int j = 0; j < data->features[i].size() - 1; j++) {
-            probPos += log(this->computeVocabGivenPositive(data->vocab[j], data->features[i][j], 1));
-            probNeg += log(this->computeVocabGivenPositive(data->vocab[j], data->features[i][j], 0));
+            if (data->features[i][j] == 1) {
+                probPos += log(this->computeVocabGivenPositive(data->vocab[j], data->features[i][j], 1));
+                probNeg += log(this->computeVocabGivenPositive(data->vocab[j], data->features[i][j], 0));
+            }
         }
-        cout << "probPos: " << probPos << endl;
-        cout << "probNeg: " << probNeg << endl;
         if (probPos > probNeg) {
             results.push_back(1);
         }
@@ -48,7 +48,7 @@ double kb::computeVocabGivenPositive(string word, int present, int pos) {
                 recordsMatch++;
         }
     }
-    double prob = (1+recordsMatch)/(this->computePositive(pos)*this->features.size()+2);
+    double prob = (1+recordsMatch)/(this->computePositive(pos)+2);
     //cout << "P(" << word << "=true|positive=" << ((bool) pos) << "):\t" << prob << endl;
     return prob;
 }

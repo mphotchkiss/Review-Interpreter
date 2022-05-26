@@ -17,10 +17,26 @@ kb * process_file(char *, char *);
 int main(int argc, char ** argv) {
     kb * trained = process_file(argv[1], argv[2]);
     kb * test = process_file(argv[3], argv[4]);
-    vector<int> results = trained->categorize(test);
-    for (int i = 0; i < results.size(); i++) {
-        cout << results[i] << endl;
+    vector<int> training_results = trained->categorize(trained);
+    vector<int> testing_results = trained->categorize(test);
+    int number_correct = 0;
+    int total_sentences = trained->getFeatures().size();
+    for (int i = 0; i < training_results.size(); i++) {
+        if (training_results[i] == trained->getFeatures()[i][trained->getFeatures()[i].size() - 1]) {
+            number_correct++;
+        }
     }
+    double percentage = 100 * ((double)number_correct / (double)total_sentences);
+    cout << "percentage of training data sentences correctly classified: " << percentage << endl;
+    number_correct = 0;
+    total_sentences = test->getFeatures().size();
+    for (int i = 0; i < testing_results.size(); i++) {
+        if (testing_results[i] == test->getFeatures()[i][test->getFeatures()[i].size() - 1]) {
+            number_correct++;
+        }
+    }
+    percentage = 100 * ((double)number_correct / (double)total_sentences);
+    cout << "percentage of testing data sentences correctly classified: " << percentage << endl;
     return 0;
 }
 
