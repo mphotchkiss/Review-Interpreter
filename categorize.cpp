@@ -13,12 +13,20 @@ string tolower(string);
 bool compareFunction(string, string);
 vector<string> remove_repeats(vector<string>);
 kb * process_file(char *, char *);
+void print_results(kb * trained, kb * test, vector<int> training_results, vector<int> testing_results);
 
 int main(int argc, char ** argv) {
     kb * trained = process_file(argv[1], argv[2]);
     kb * test = process_file(argv[3], argv[4]);
     vector<int> training_results = trained->categorize(trained);
     vector<int> testing_results = trained->categorize(test);
+    print_results(trained, test, training_results, testing_results);
+    return 0;
+}
+
+void print_results(kb * trained, kb * test, vector<int> training_results, vector<int> testing_results) {
+    ofstream fout;
+    fout.open("results.txt");
     int number_correct = 0;
     int total_sentences = trained->getFeatures().size();
     for (int i = 0; i < training_results.size(); i++) {
@@ -27,7 +35,10 @@ int main(int argc, char ** argv) {
         }
     }
     double percentage = 100 * ((double)number_correct / (double)total_sentences);
-    cout << "percentage of training data sentences correctly classified: " << percentage << endl;
+    fout << "Training Set:" << endl;
+    fout << "Training done using trainingSet.txt, which is processed and stored in preprocessed_train.txt as per the command line arguments in the Makefile. The information from this processing is then used for testing on the training set." << endl;
+    fout << "Percentage of training data sentences correctly classified: " << percentage << "%" << endl;
+    fout << endl;
     number_correct = 0;
     total_sentences = test->getFeatures().size();
     for (int i = 0; i < testing_results.size(); i++) {
@@ -36,8 +47,9 @@ int main(int argc, char ** argv) {
         }
     }
     percentage = 100 * ((double)number_correct / (double)total_sentences);
-    cout << "percentage of testing data sentences correctly classified: " << percentage << endl;
-    return 0;
+    fout << "Testing Set:" << endl;
+    fout << "Training done using trainingSet.txt. Testing is done by preprocessing testSet.txt and uses the same values as seen in preprocessed_test.txt." << endl;
+    fout << "Percentage of testing data sentences correctly classified: " << percentage << "%" << endl;
 }
 
 kb * process_file(char * in, char * out) {

@@ -1,0 +1,7 @@
+Training Set:
+Training done using trainingSet.txt, which is processed and stored in preprocessed_train.txt as per the command line arguments in the Makefile. The information from this processing is then used for testing on the training set.
+Percentage of training data sentences correctly classified: 95.7916%
+
+Testing Set:
+Training done using trainingSet.txt. Testing is done by preprocessing testSet.txt and uses the same values as seen in preprocessed_test.txt.
+Percentage of testing data sentences correctly classified: 78.672%
