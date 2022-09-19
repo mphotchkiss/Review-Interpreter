@@ -1,6 +1,6 @@
 # Review-Interpreter
 
-A program that recieves reviews (as in Yelp, for example) as input and outputs the positive/negative status of the review by leveraging a Naive Bayes Classifier and training data.
+A program that recieves reviews (as in Yelp, for example) as input, and outputs the positive/negative status of the review by leveraging a Naive Bayes Classifier and training data.
 
 ## What I learned
 
